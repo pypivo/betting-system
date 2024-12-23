@@ -1,5 +1,3 @@
-import logging
-
 from sqlalchemy import Connection, text
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 
@@ -7,23 +5,17 @@ from alembic.command import upgrade
 from alembic.config import Config
 from src.db.managers.base_db_manager import DBManagerBase
 from src.db.managers.event_db_manager import EventManager
-from src.db.managers.bet_db_manager import BetManager
-
 
 
 class DBManager(DBManagerBase):
     def __init__(self, async_engine: AsyncEngine):
         super().__init__(async_engine)
         self._event_manager = EventManager(async_engine)
-        self._bet_manager = BetManager(async_engine)
 
     @property
     def event_manager(self) -> EventManager:
         return self._event_manager
     
-    @property
-    def bet_manager(self) -> BetManager:
-        return self._bet_manager
 
     async def healthcheck(self) -> bool:
         try:

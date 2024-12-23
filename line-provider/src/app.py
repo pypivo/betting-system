@@ -1,7 +1,6 @@
 from fastapi import Depends, FastAPI
 
 from src.api.routers.event_routers import event_routers
-from src.api.routers.bet_routers import bet_routers
 from src.app_manager_container import AppManagerContainer
 from src.bl.managers.manager import BLManager
 
@@ -9,7 +8,6 @@ def create_app() -> FastAPI:
     app = FastAPI(lifespan=lifespan_context)
 
     app.include_router(event_routers)
-    app.include_router(bet_routers)
 
     return app
 
